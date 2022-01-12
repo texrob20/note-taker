@@ -1,6 +1,14 @@
-[
+{
+  "savedNotes": [
     {
-        "title":"Test Title",
-        "text":"Test text"
+      "title": "test1",
+      "text": "test6",
+      "id": 0
+    },
+    {
+      "title": "test2",
+      "text": "test6",
+      "id": 1
     }
-]
+  ]
+}
