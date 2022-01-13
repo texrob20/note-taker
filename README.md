@@ -12,11 +12,16 @@ GIVEN a note-taking application
 - HTML
 - CSS: Bootstrap, Font Awesome
 - Javascript
-- Node js: Inquirer, FS
+- Node js: FS
 - Express js
 
-## About App
+## Note Taker Webpage
+The user is presented with the index.html page as the homepage.  From there the user can move to the Note Taker page which has their notes stored and allows for the user to add or remove notes.
+
+## Backend Services
+Using Express js, a backend server provides access to the json "database" the stores the note information.  Server.js provides routes to support GET, PUT, and DELETE requests when the user adds or removes notes.
 
 ## Demo
+<img src=https://github.com/texrob20/note-taker/blob/main/demo/note-taker-demo.png>
 
 ## Deployed Application
