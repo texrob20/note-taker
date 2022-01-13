@@ -1,14 +1,9 @@
 {
   "savedNotes": [
     {
-      "title": "test1",
-      "text": "test6",
+      "title": "Note Title",
+      "text": "Note Text",
       "id": 0
-    },
-    {
-      "title": "test2",
-      "text": "test6",
-      "id": 1
     }
   ]
 }

@@ -2,19 +2,22 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
-var { savedNotes } = require('./data/db');
+const { savedNotes } = require('./data/db');
 const PORT = process.env.PORT || 3001;
+//sets initial value for note id
+var counterID = savedNotes.length;  
 
+//determines which note to delete from db and removes
 function checkNote (id) {
   for (i=0; i<savedNotes.length; i++) {
-    //console.log(savedNotes[i].id, id);
     if (savedNotes[i].id == id) {
-      console.log(savedNotes[i].id, id);
       savedNotes.splice(i,1);
     }
   }
+  return savedNotes;
 }
 
+//updates the db when a note is added or removed
 function updateNotes(){
   fs.writeFileSync(
     path.join(__dirname, "./data/db.json"),
@@ -24,31 +27,32 @@ function updateNotes(){
 }
 
 app.use(express.static('public'));
-// parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
-// parse incoming JSON data
 app.use(express.json());
+//listens for get api request and returns notes stored in db
 app.get('/api/notes', (req, res)=>{
     res.json(savedNotes);
 })
-
+//listens for post request and adds a new note to the db
 app.post('/api/notes', (req, res)=>{
-  req.body.id = savedNotes.length;
+  req.body.id = counterID;  //sets note ID based on counter
   savedNotes.push(req.body);
   updateNotes();
+  counterID ++; //updates counter to avoid duplicate IDs
+  res.json(savedNotes);
 })
-
+//listens for delete request and removes note that matches selected ID
 app.delete('/api/notes/', (req, res)=>{
   let value = req.query.id;
   checkNote(value);
   updateNotes();
-  console.log(savedNotes);
+  res.json(savedNotes);
 })
-
+//directs all home requests to the index.html page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
-
+//directs all /notes requests to the notes.html page
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
   });
